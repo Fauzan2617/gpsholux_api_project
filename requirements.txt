@@ -3,3 +3,4 @@ uvicorn[standard]
 requests
 pynmea2
 pyserial
+jinja2
