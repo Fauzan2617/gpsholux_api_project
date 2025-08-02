@@ -1,7 +1,5 @@
 fastapi
 uvicorn[standard]
 requests
-pywebview
-pyserial
 pynmea2
-python-dotenv
+pyserial
