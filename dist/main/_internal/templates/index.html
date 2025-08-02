@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GPS Transmitter</title>
+  <style>
+    body {
+      background: #10384E;
+      color: #6FFFB0;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 { color: white; margin-bottom: 20px; }
+    .box {
+      background: #1e4e65;
+      display: inline-block;
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: left;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .row { margin-bottom: 10px; }
+    .label { display: inline-block; width: 100px; color: #ccc; }
+    .value { display: inline-block; min-width: 100px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>📡 GPS Transmitter</h1>
+  <div class="box">
+    <div class="row"><span class="label">Waktu UTC:</span><span id="timestamp" class="value">—</span></div>
+    <div class="row"><span class="label">Latitude:</span><span id="latitude"  class="value">—</span></div>
+    <div class="row"><span class="label">Longitude:</span><span id="longitude" class="value">—</span></div>
+    <div class="row"><span class="label">Altitude (m):</span><span id="altitude"  class="value">—</span></div>
+    <div class="row"><span class="label">Speed (km/h):</span><span id="speed"     class="value">—</span></div>
+    <div class="row"><span class="label">Heading (°):</span><span id="heading"   class="value">—</span></div>
+  </div>
+
+  <script>
+    async function fetchGPS() {
+      try {
+        const res = await fetch("/gps");
+        const d   = await res.json();
+        document.getElementById("timestamp").textContent = d.timestamp || "—";
+        document.getElementById("latitude").textContent  = d.latitude.toFixed(6);
+        document.getElementById("longitude").textContent = d.longitude.toFixed(6);
+        document.getElementById("altitude").textContent  = d.altitude.toFixed(2);
+        document.getElementById("speed").textContent     = d.speed.toFixed(2);
+        document.getElementById("heading").textContent   = d.heading.toFixed(1);
+      } catch (e) {
+        console.error("Fetch /gps error:", e);
+      }
+    }
+
+    fetchGPS();
+    setInterval(fetchGPS, 2000);
+  </script>
+</body>
+</html>
