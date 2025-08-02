@@ -5,8 +5,9 @@ import requests
 import serial
 import pynmea2
 from datetime import datetime, timezone
+import os
 
-SERVER_URL   = "http://127.0.0.1:8000/update"
+SERVER_URL   = os.getenv("SERVER_URL", "http://127.0.0.1:8000/update")
 SERIAL_PORT  = "COM6"    # sesuaikan kalau port-mu berbeda
 BAUDRATE     = 4800      # umumnya GPS NMEA default 4800 bps
 

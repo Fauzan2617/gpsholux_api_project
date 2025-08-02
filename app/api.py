@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.state import get_gps_state, update_gps_state
 from app.simulator import start_simulator  # tambahkan ini
@@ -14,6 +15,13 @@ templates_dir = os.path.join(base_dir, "templates")
 static_dir    = os.path.join(base_dir, "static")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+ )
 
 # Jalankan simulator saat server mulai
 @app.on_event("startup")

@@ -4,3 +4,4 @@ requests
 pywebview
 pyserial
 pynmea2
+python-dotenv
